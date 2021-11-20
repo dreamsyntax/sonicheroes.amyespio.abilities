@@ -1,6 +1,5 @@
 ﻿using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
-using Reloaded.Memory;
 using sonicheroes.amyespio.abilities.Configuration;
 using sonicheroes.amyespio.abilities.Configuration.Implementation;
 using System;
@@ -41,7 +40,7 @@ namespace sonicheroes.amyespio.abilities
         /// <summary>
         /// Entry point for your mod.
         /// </summary>
-        public void Start(IModLoaderV1 loader)
+        public void Start(IModLoaderV2 loader)
         {
             _modLoader = (IModLoader)loader;
             _logger = (ILogger)_modLoader.GetLogger();
@@ -56,39 +55,40 @@ namespace sonicheroes.amyespio.abilities
 
             /* Your mod code starts here. */
 
-            // address start: 001A67C0
-            IntPtr sec1address = new IntPtr(0x005A67C0);
+            // sec1: 001A67C0
             // original:   8A 88 BB 00 00 00 84 C9 74
             // hacked:     90 90 90 90 90 90 90 90 EB
-            AmyEspioData section1 = new AmyEspioData(0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xEB);
 
-            // address start: 001AF714
-            IntPtr sec2address = new IntPtr(0x005AF714);
-
+            // sec2: 001AF714
             // original: 0x87
             // hacked:   0x7A
 
-            // address start: 001AF720
-            IntPtr sec3address = new IntPtr(0x005AF720);
-
+            // sec3: 001AF720
             // original: 0x87
             // hacked:   0x7A
 
-            // address start: 001CFAEE
-            IntPtr sec4address = new IntPtr(0x005CFAEE);
-
+            // sec4: 001CFAEE
             // original: 0x06
             // hacked:   0x7F
 
-            byte[] sec2hax = new byte[1];
-            sec2hax[0] = 0x7A;
-            Struct.ToPtr(sec1address, section1, true);
+            EnableAmyEspioAbilities();
 
-            IMemory memory = Reloaded.Memory.Sources.Memory.CurrentProcess;
-            memory.SafeWriteRaw(sec2address, sec2hax);
-            //Memory.Instance.SafeWriteRaw(sec2address, sec2hax);
-            Memory.Instance.SafeWrite<byte>(sec3address, 0x7A);
-            Memory.Instance.SafeWrite(sec4address, (byte)0x7F);
+        }
+
+        private void EnableAmyEspioAbilities()
+        {
+            Memory.Instance.SafeWrite((IntPtr)0x005A67C0, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xEB });
+            Memory.Instance.SafeWrite<byte>((IntPtr)0x005AF714, 0x7A);
+            Memory.Instance.SafeWrite<byte>((IntPtr)0x005AF720, 0x7A);
+            Memory.Instance.SafeWrite<byte>((IntPtr)0x005CFAEE, 0x7F);
+        }
+
+        private void DisableAmyEspioAbilities()
+        {
+            Memory.Instance.SafeWrite((IntPtr)0x005A67C0, new byte[] { 0x8A, 0x88, 0xBB, 0x00, 0x00, 0x00, 0x84, 0xC9, 0x74 });
+            Memory.Instance.SafeWrite<byte>((IntPtr)0x005AF714, 0x87);
+            Memory.Instance.SafeWrite<byte>((IntPtr)0x005AF720, 0x87);
+            Memory.Instance.SafeWrite<byte>((IntPtr)0x005CFAEE, 0x06);
         }
 
         private void OnConfigurationUpdated(IConfigurable obj)
@@ -109,6 +109,7 @@ namespace sonicheroes.amyespio.abilities
         /* Mod loader actions. */
         public void Suspend()
         {
+            DisableAmyEspioAbilities();
             /*  Some tips if you wish to support this (CanSuspend == true)
              
                 A. Undo memory modifications.
@@ -118,6 +119,7 @@ namespace sonicheroes.amyespio.abilities
 
         public void Resume()
         {
+            EnableAmyEspioAbilities();
             /*  Some tips if you wish to support this (CanSuspend == true)
              
                 A. Redo memory modifications.
@@ -127,6 +129,7 @@ namespace sonicheroes.amyespio.abilities
 
         public void Unload()
         {
+            DisableAmyEspioAbilities();
             /*  Some tips if you wish to support this (CanUnload == true).
              
                 A. Execute Suspend(). [Suspend should be reusable in this method]
@@ -137,8 +140,8 @@ namespace sonicheroes.amyespio.abilities
         /*  If CanSuspend == false, suspend and resume button are disabled in Launcher and Suspend()/Resume() will never be called.
             If CanUnload == false, unload button is disabled in Launcher and Unload() will never be called.
         */
-        public bool CanUnload() => false;
-        public bool CanSuspend() => false;
+        public bool CanUnload() => true;
+        public bool CanSuspend() => true;
 
         /* Automatically called by the mod loader when the mod is about to be unloaded. */
         public Action Disposing { get; }

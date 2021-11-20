@@ -1,9 +1,9 @@
 {
   "ModId": "sonicheroes.amyespio.abilities",
-  "ModName": "Reloaded Mod Config Template",
-  "ModAuthor": "Someone",
+  "ModName": "Amy Espio Abilities",
+  "ModAuthor": "dreamsyntax",
   "ModVersion": "1.0.0",
-  "ModDescription": "Template for a Reloaded Mod Configuration",
+  "ModDescription": "Grants lightdash/trianglejump to Amy and Espio",
   "ModDll": "sonicheroes.amyespio.abilities.dll",
   "ModIcon": "Preview.png",
   "ModR2RManagedDll32": "x86/sonicheroes.amyespio.abilities.dll",
