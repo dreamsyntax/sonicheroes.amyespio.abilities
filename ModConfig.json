@@ -1,0 +1,16 @@
+{
+  "ModId": "sonicheroes.amyespio.abilities",
+  "ModName": "Reloaded Mod Config Template",
+  "ModAuthor": "Someone",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Template for a Reloaded Mod Configuration",
+  "ModDll": "sonicheroes.amyespio.abilities.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/sonicheroes.amyespio.abilities.dll",
+  "ModR2RManagedDll64": "x64/sonicheroes.amyespio.abilities.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "ModDependencies": [ "reloaded.sharedlib.hooks" ],
+  "OptionalDependencies": null,
+  "SupportedAppId": []
+}
