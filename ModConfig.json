@@ -1,6 +1,6 @@
 {
   "ModId": "sonicheroes.amyespio.abilities",
-  "ModName": "Amy Espio Abilities",
+  "ModName": "Amy/Espio Abilities",
   "ModAuthor": "dreamsyntax",
   "ModVersion": "1.0.0",
   "ModDescription": "Grants lightdash/trianglejump to Amy and Espio",
@@ -12,5 +12,5 @@
   "ModNativeDll64": "",
   "ModDependencies": [ "reloaded.sharedlib.hooks" ],
   "OptionalDependencies": null,
-  "SupportedAppId": []
+  "SupportedAppId": [ "tsonic_win.exe" ]
 }

@@ -40,7 +40,7 @@ namespace sonicheroes.amyespio.abilities
         /// <summary>
         /// Entry point for your mod.
         /// </summary>
-        public void Start(IModLoaderV2 loader)
+        public void Start(IModLoaderV1 loader)
         {
             _modLoader = (IModLoader)loader;
             _logger = (ILogger)_modLoader.GetLogger();
