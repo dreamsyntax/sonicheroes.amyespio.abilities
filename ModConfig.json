@@ -2,7 +2,7 @@
   "ModId": "sonicheroes.amyespio.abilities",
   "ModName": "Amy/Espio Abilities",
   "ModAuthor": "dreamsyntax",
-  "ModVersion": "1.0.0",
+  "ModVersion": "1.0.1",
   "ModDescription": "Grants Light Dash and Triangle Jump to Amy and Espio. Original hex edit credit to SCHG: Sonic Heroes / Muzzarino",
   "ModDll": "sonicheroes.amyespio.abilities.dll",
   "ModIcon": "Preview.png",
@@ -15,5 +15,5 @@
   "ModDependencies": [ "reloaded.sharedlib.hooks" ],
   "OptionalDependencies": [],
   "SupportedAppId": [ "tsonic_win.exe" ],
-  "ProjectUrl": ""
+  "ProjectUrl": "https://github.com/dreamsyntax/sonicheroes.amyespio.abilities"
 }
